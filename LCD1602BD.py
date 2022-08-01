@@ -21,7 +21,6 @@ bigNums = [ [7, 0, 5, 4, 1, 6],         #0
 			[7, 2, 5, 4, 3, 6],         #8
 			[7, 2, 5, 1, 3, 6]]         #9
 
-
 def write_word(addr, data):
 	global BLEN
 	temp = data
