@@ -25,7 +25,7 @@ lcd.init(0x27, 1)
 for x in range(0,100):
     tens= int(x / 10)
     ones= int(x % 10)
-    lcd.bigDigit(0,tens)
+    lcd.bigDigit(0,tens)    #(start column, digit)
     lcd.bigDigit(4,ones)
     time.sleep(.2)
 
