@@ -101,8 +101,9 @@ def openlight():  # Enable the backlight
 	BUS.close()
 
 # New method for BD KCL
-def bigDigit(x, digit):			# (col, digit 0-9)
+def bigDigit(x, num):			# (col, digit 0-9)
 	col = min(15, max(0, x))	#constrain col value 0 to 15
+	digit= min(9, max(0, num))	#constrain digit value 0 to 9
 
 	# Move cursor top row
 	curPos = 0x80 + col			#same as 0x80 + 0x40 * (row = 0) + col
