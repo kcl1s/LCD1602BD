@@ -1,25 +1,29 @@
+#!/usr/bin/env python3
+
+import time
 import smbus2 as smbus
 BUS = smbus.SMBus(1)
 ### added for big digits KCL
 custChar = [[31, 31, 31, 0, 0, 0, 0, 0],      # Small top line - 0
-		[0, 0, 0, 0, 0, 31, 31, 31],      # Small bottom line - 1
-		[31, 31, 0, 0, 0, 0, 31, 31],       # Small lines top and bottom -2
-		[0, 0, 0, 0, 0, 0,  31, 31],       # Thin bottom line - 3
-		[31, 31, 31, 31, 31, 31, 15, 7],  # Left bottom chamfer full - 4
-		[28, 30, 31, 31, 31, 31, 31, 31], # Right top chamfer full -5
-		[31, 31, 31, 31, 31, 31, 30, 28], # Right bottom chamfer full -6
-		[7, 15, 31, 31, 31, 31, 31, 31]]  # Left top chamfer full -7
+			[0, 0, 0, 0, 0, 31, 31, 31],      # Small bottom line - 1
+			[31, 31, 0, 0, 0, 0, 31, 31],       # Small lines top and bottom -2
+			[0, 0, 0, 0, 0, 0,  31, 31],       # Thin bottom line - 3
+			[31, 31, 31, 31, 31, 31, 15, 7],  # Left bottom chamfer full - 4
+			[28, 30, 31, 31, 31, 31, 31, 31], # Right top chamfer full -5
+			[31, 31, 31, 31, 31, 31, 30, 28], # Right bottom chamfer full -6
+			[7, 15, 31, 31, 31, 31, 31, 31]]  # Left top chamfer full -7
 
 bigNums = [ [7, 0, 5, 4, 1, 6],         #0
-		[0, 5, 254, 1, 255, 1],     #1
-		[0, 2, 5, 7, 3, 1],         #2
-		[0, 2, 5, 1, 3, 6],         #3
-		[7, 3, 255, 254, 254, 255], #4
-		[255, 2, 0, 1, 3, 6],       #5
-		[7, 2, 0, 4, 3, 6],         #6
-		[0, 0, 5, 254, 7, 254],     #7
-		[7, 2, 5, 4, 3, 6],         #8
-		[7, 2, 5, 1, 3, 6]]         #9
+			[0, 5, 254, 1, 255, 1],     #1
+			[0, 2, 5, 7, 3, 1],         #2
+			[0, 2, 5, 1, 3, 6],         #3
+			[7, 3, 255, 254, 254, 255], #4
+			[255, 2, 0, 1, 3, 6],       #5
+			[7, 2, 0, 4, 3, 6],         #6
+			[0, 0, 5, 254, 7, 254],     #7
+			[7, 2, 5, 4, 3, 6],         #8
+			[7, 2, 5, 1, 3, 6]]         #9
+
 
 def write_word(addr, data):
 	global BLEN
@@ -101,9 +105,9 @@ def openlight():  # Enable the backlight
 	BUS.close()
 
 # New method for BD KCL
-def bigDigit(x, num):			# (col, digit 0-9)
-	col = min(15, max(0, x))	#constrain col value 0 to 15
-	digit= min(9, max(0, num))	#constrain digit value 0 to 9
+def bigDigit(col, digit):			# (col, digit 0-9)
+	col = min(15, max(0, int(col)))		#constrain col value 0 to 15
+	digit = min(9, max(0, int(digit)))	#constrain digit col value 0 to 9
 
 	# Move cursor top row
 	curPos = 0x80 + col			#same as 0x80 + 0x40 * (row = 0) + col
@@ -130,7 +134,6 @@ def write(x, y, str):
 
 if __name__ == '__main__':
 	init(0x27, 1)
-	print(custChar[1])
 	write(4, 0, 'Hello')
 	write(4, 1, 'world!')
 	for x in range(10):
